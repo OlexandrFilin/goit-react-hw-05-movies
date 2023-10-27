@@ -1,10 +1,24 @@
-const ListMovies =({search})=>{
+import { Link } from "react-router-dom";
+
+ const ListMovies = ({ArrMovies})=>{    
     return (
-        <ul>
-            <li>movi 1</li>
-            <li>movi 2</li>
-             <li>movi 3</li>  
-        </ul>
+        <>
+       {(ArrMovies.length !==0) && <ul>
+            {ArrMovies.map(item =>
+            {
+                if(item.title){
+                    return <li key={item.id}> 
+                    <Link to='/'>{item.title}</Link>
+                     </li> 
+                } else {
+                    return <li key={item.id}> 
+                    <Link to='/'>{item.name}</Link> 
+                    </li> 
+                 }
+            }                
+            )}
+        </ul> }
+        </>
     )
 };
 
