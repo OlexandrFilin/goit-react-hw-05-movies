@@ -6,9 +6,6 @@ import { useEffect, useState } from 'react';
 const HomePage = () => {
   const [isList, setIsList] = useState([]);
 
-//   console.log('isList-1', isList);
-//   console.log('isList.length', isList.length);
-
   useEffect(() => {
     async function fetchData() {
       try {

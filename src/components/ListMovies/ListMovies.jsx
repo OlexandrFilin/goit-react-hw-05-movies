@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
             {
                 if(item.title){
                     return <li key={item.id}> 
-                    <Link to='/'>{item.title}</Link>
+                    <Link to={`/movies/${item.id}`}>{item.title}</Link>
                      </li> 
                 } else {
                     return <li key={item.id}> 
-                    <Link to='/'>{item.name}</Link> 
+                    <Link to={`/movies/${item.id}`}>{item.name}</Link> 
                     </li> 
                  }
             }                
