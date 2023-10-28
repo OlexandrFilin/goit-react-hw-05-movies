@@ -4,7 +4,6 @@ import { LabelSearch, InputSearch } from './MovieSearch.styled';
 import { querySearch } from '../../queri';
 import ListMovies from 'components/ListMovies/ListMovies';
 
-
 const MovieSearch = ({ strSearch }) => {
   const [query, setQuery] = useState(strSearch);
   const [isList, setIsList] = useState([]);
@@ -15,19 +14,23 @@ const MovieSearch = ({ strSearch }) => {
   useEffect(() => {
     // Тут виконуємо асинхронну операцію,
     // наприклад HTTP-запит за інформацією про фльм
-    if (query === '') return;
+    if (!query) return;
+    try {
+      async function fetchMovie() {
+        await querySearch(query).then(data => {
+          console.log('ata.result', data.results);
 
-    async function fetchMovie() {
-      await querySearch(query).then(data => {
-       console.log('ata.result', data.results);
-       const result ={...data.results};
-       setIsList(data.results);
-      });
+          //const result ={...data.results};
+          setIsList(data.results);
+        });
 
-      // setQuery(query);
+        // setQuery(query);
+      }
+      fetchMovie();
+    } catch (error) {
+      console.log('error', error);
+    } finally {
     }
-
-    fetchMovie();
   }, [query]);
 
   const onSubmit = e => {
@@ -37,7 +40,7 @@ const MovieSearch = ({ strSearch }) => {
     // setStrSearch(strSearch);
     //setSearchParams({ query: strSearch   })
     //console.log('searchParams.get("guery")', searchParams.get('query'));
-   // e.target.reset();
+    // e.target.reset();
   };
 
   return (
@@ -55,12 +58,8 @@ const MovieSearch = ({ strSearch }) => {
           />
         </LabelSearch>
         <button type="submit">Search</button>
-
       </form>
-      {isList&&<ListMovies ArrMovies={isList} />}
-      
-
-
+      {isList && <ListMovies ArrMovies={isList} />}
     </>
   );
 };
