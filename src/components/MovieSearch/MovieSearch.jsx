@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LabelSearch, InputSearch } from './MovieSearch.styled';
+import { InputSearch, FormSearch,ButtonSearch  } from './MovieSearch.styled';
 //import { useSearchParams } from 'react-router-dom';
 import { querySearch } from '../../queri';
 import ListMovies from 'components/ListMovies/ListMovies';
@@ -23,8 +23,6 @@ const MovieSearch = ({ strSearch }) => {
           //const result ={...data.results};
           setIsList(data.results);
         });
-
-        // setQuery(query);
       }
       fetchMovie();
     } catch (error) {
@@ -45,20 +43,16 @@ const MovieSearch = ({ strSearch }) => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <LabelSearch className="">
-          Search
+      <FormSearch  onSubmit={onSubmit}>
+        
           <InputSearch
             type="text"
             name="InpStrSearch"
-            //value={value}
-            // className={css.inpfiltr}
-            // onChange={onChange}
-            placeholder="String of search"
+             placeholder="String of search"
           />
-        </LabelSearch>
-        <button type="submit">Search</button>
-      </form>
+       
+        <ButtonSearch type="submit">Search</ButtonSearch>
+      </FormSearch>
       {isList && <ListMovies ArrMovies={isList} />}
     </>
   );

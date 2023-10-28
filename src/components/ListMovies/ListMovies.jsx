@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 
- const ListMovies = ({ArrMovies})=>{    
+ const ListMovies = ({ArrMovies})=>{  
+
     return (
+      
         <>
        {(ArrMovies.length !==0) && <ul>
             {ArrMovies.map(item =>
