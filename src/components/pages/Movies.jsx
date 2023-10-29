@@ -1,11 +1,11 @@
-import GoBack from "components/GoBack/GoBack";
+//import GoBack from "components/GoBack/GoBack";
 
 import MovieSearch from "components/MovieSearch/MovieSearch"
 
 const Movies =()=>{
     return (
         <>
-        <GoBack/>
+        {/* <GoBack/> */}
         <MovieSearch></MovieSearch>
 </>
     

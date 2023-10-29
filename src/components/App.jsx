@@ -2,9 +2,9 @@ import HomePage from "components/pages/Home";
 import Movies from "components/pages/Movies";
 import {  Route, Routes } from "react-router-dom";
 import { NavApp, NavLinkApp } from "./App.styled";
-import { MovieCard } from "./MovieCard/MovieCard";
-import { Actors } from "./Actors/Actors";
-import { Reviews } from "./Reviews/Reviews";
+import  MovieCard  from "./MovieDetails/MovieDetails";
+import Actors  from "./Actors/Actors";
+import  Reviews  from "./Reviews/Reviews";
 
 
 // const KEY = "39d6833137272dd1d732fb13910a9756";

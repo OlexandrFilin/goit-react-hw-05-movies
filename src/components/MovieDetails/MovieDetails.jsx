@@ -1,8 +1,8 @@
-import GoBack from 'components/GoBack/GoBack';
+//import GoBack from 'components/GoBack/GoBack';
 import { queryCardMovie } from '../../Api';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { ContainerAboutMovie } from './MovieCard.styled';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 const MovieCard = () => {
@@ -14,6 +14,9 @@ const MovieCard = () => {
   const [isReleaseDate, setReleaseDate] = useState('');
   const [isOverview, setOverview] = useState('');
   const [isGenres, setGenres] = useState([]);
+  const location =useLocation();
+
+  const linkLocation = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     if (!isPosterPass) {
@@ -50,13 +53,14 @@ const MovieCard = () => {
       return str + ' ' + nameGenres;
     }, '');
   };
-
+  console.log('location Movie card', location)
+  const defaultImg = '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>'
   return (
     <>
-      <GoBack />
+        <Link to={linkLocation.current}>Go back</Link>
       <ContainerAboutMovie>
         <img
-          src={`https://image.tmdb.org/t/p/w500${isPosterPass}`}
+          src={ isPosterPass ?`https://image.tmdb.org/t/p/w500${isPosterPass}`:defaultImg}
           alt="isCargMovie.title"
         />
         <div>
@@ -80,4 +84,4 @@ const MovieCard = () => {
     </>
   );
 };
-export { MovieCard };
+export default MovieCard  ;
