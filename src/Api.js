@@ -25,15 +25,9 @@ const trending = '/trending/all/day'
 };
 
  const queryCardMovie = async (idCard) => {
-  // const param = new URLSearchParams({
-  //   api_key: KEY,
-   
-  // });
-  //const queryUrl =`${BASE_URL}${trending}?${param.toString()}`;
+  
   const queryUrl =`${BASE_URL}/movie/${idCard}?api_key=${KEY}`;  
-  // console.log('queryUrl', queryUrl)
-  // const queryUrl1 ='https://api.themoviedb.org/3/movie/507089?api_key=39d6833137272dd1d732fb13910a9756';  
-  // console.log('queryUrl1', queryUrl1)
+ 
   const response = await axios
     .get(queryUrl)
     .catch(error => {
@@ -46,14 +40,8 @@ const trending = '/trending/all/day'
 };
 
 const querySearch = async (stringSearch) => {
-  // const param = new URLSearchParams({
-  //   api_key: KEY,
-   
-  // });
-  //const queryUrl =`${BASE_URL}${trending}?${param.toString()}`;
-
-  const queryUrl =`https://api.themoviedb.org/3/search/movie?query=${stringSearch}&include_adult=false&language=en-US&page=1'&api_key=39d6833137272dd1d732fb13910a9756`;  
-
+  const queryUrl =`${BASE_URL}/search/movie?query=${stringSearch}&include_adult=false&language=en-US&page=1'&api_key=${KEY}`;  
+  
   const response = await axios
     .get(queryUrl)
     .catch(error => {
@@ -64,4 +52,32 @@ const querySearch = async (stringSearch) => {
   }
   return response.data;
 };
-export {queryTrending, queryCardMovie, querySearch};
+
+const actorsView = async (idCard) => {
+  const queryUrl =`${BASE_URL}/movie/${idCard}/credits?api_key=${KEY}`; 
+  const response = await axios
+    .get(queryUrl)
+    .catch(error => {
+      throw new Error(error.message);
+    });
+  if (!response) {
+    throw new Error(response.status);
+  }
+  return response.data;
+};
+
+const reviews= async (idCard) => {
+  const queryUrl =`${BASE_URL}/movie/${idCard}/reviews?api_key=${KEY}`; 
+ // console.log('queryUrl', queryUrl)
+  const response = await axios
+    .get(queryUrl)
+    .catch(error => {
+      throw new Error(error.message);
+    });
+  if (!response) {
+    throw new Error(response.status);
+  }
+  return response.data;
+};
+
+export {queryTrending, queryCardMovie, querySearch,actorsView, reviews };

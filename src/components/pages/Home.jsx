@@ -1,6 +1,6 @@
 import HeaderHome from 'components/HeaderHome/HeaderHome';
 import ListMovies from 'components/ListMovies/ListMovies';
-import { queryTrending } from '../../queri';
+import { queryTrending } from '../../Api';
 import { useEffect, useState } from 'react';
 
 const HomePage = () => {
