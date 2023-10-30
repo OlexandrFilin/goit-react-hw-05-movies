@@ -1,14 +1,18 @@
 //import GoBack from 'components/GoBack/GoBack';
-import { BiArrowBack } from "react-icons/bi";
+import { BiArrowBack } from 'react-icons/bi';
 import { queryCardMovie } from '../../Api';
-import { useState, useEffect,useRef} from 'react';
-import { ContainerAboutMovie, GoBackStyl, ListNavAddInfo } from './MovieCard.styled';
-import { Link, Outlet,useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import {
+  ContainerAboutMovie,
+  GoBackStyl,
+  ListNavAddInfo,
+} from './MovieCard.styled';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { Suspense } from "react";
+import { Suspense } from 'react';
+import { spinerGo } from '../Loader/Loader';
 
 const MovieCard = () => {
-
   const { movieId } = useParams();
   const [isPosterPass, setPosterPass] = useState('');
   const [isTitle, setTitle] = useState('');
@@ -16,12 +20,14 @@ const MovieCard = () => {
   const [isReleaseDate, setReleaseDate] = useState('');
   const [isOverview, setOverview] = useState('');
   const [isGenres, setGenres] = useState([]);
-  const location =useLocation();
+  const [isSpiner, setSpiner] = useState(true);
 
- 
- const BackLocationRef = useRef(location.state?.from);
+  const location = useLocation();
+
+  const BackLocationRef = useRef(location.state?.from);
   useEffect(() => {
     if (!isPosterPass) {
+      setSpiner(true);
       async function fetchData() {
         try {
           await queryCardMovie(movieId).then(data => {
@@ -35,6 +41,7 @@ const MovieCard = () => {
         } catch (error) {
           console.log('error', error);
         } finally {
+          setSpiner(false);
         }
       }
       fetchData();
@@ -55,14 +62,30 @@ const MovieCard = () => {
       return str + ' ' + nameGenres;
     }, '');
   };
- 
-  const defaultImg = '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>'
+
+  // const spinerGo = spiner => {
+  //   if (!spiner) {
+  //     return;
+  //   }
+  //   return <div>{spinerFunc()}</div>;
+  // };
+
+  const defaultImg =
+    '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>';
   return (
     <>
-       <GoBackStyl to={BackLocationRef.current}><BiArrowBack/>Go back</GoBackStyl>
+      <GoBackStyl to={BackLocationRef.current}>
+        <BiArrowBack />
+        Go back
+      </GoBackStyl>
+      {spinerGo(isSpiner)}
       <ContainerAboutMovie>
         <img
-          src={ isPosterPass ?`https://image.tmdb.org/t/p/w500${isPosterPass}`:defaultImg}
+          src={
+            isPosterPass
+              ? `https://image.tmdb.org/t/p/w500${isPosterPass}`
+              : defaultImg
+          }
           alt="isCargMovie.title"
         />
         <div>
@@ -74,6 +97,7 @@ const MovieCard = () => {
           <p>{getGenres(isGenres)}</p>
         </div>
       </ContainerAboutMovie>
+
       <ListNavAddInfo>
         <li>
           <Link to={'cast'}> Cast</Link>
@@ -83,9 +107,9 @@ const MovieCard = () => {
         </li>
       </ListNavAddInfo>
       <Suspense>
-      <Outlet />
+        <Outlet />
       </Suspense>
     </>
   );
 };
-export default MovieCard  ;
+export default MovieCard;

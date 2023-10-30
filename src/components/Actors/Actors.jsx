@@ -2,15 +2,17 @@ import {  useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {actorsView} from '../../Api';
 import { ImgActor,ListActors} from './Actors.styled'
-
+import { spinerGo } from '../Loader/Loader';
 const Actors =()=>{
 
     const [isCast, setCast] = useState([]);
+    const [isSpiner, setSpiner] = useState(true);
     //Проводимо пошук та рендеримо перелік акторів тільки якщо пустий масив акторів.
     const params =useParams();
        useEffect(() => {
         
        if (isCast.length === 0) {
+        setSpiner(true);
           async function fetchData() {
             try {
               await actorsView(params.movieId).then(data => {
@@ -20,7 +22,9 @@ const Actors =()=>{
             } catch (error) {
               console.log('error', error);
             } finally {
+            setSpiner(false);
             }
+
           }
           fetchData();
      }
@@ -42,12 +46,21 @@ const Actors =()=>{
         })
         
       }
+      // const spinerGo = spiner => {
+      //   if (!spiner) {
+      //     return;
+      //   }
+      //   return <div>{spinerFunc()}</div>;
+      // };
     return (
+      <>
+      {spinerGo(isSpiner)}
         <ListActors>
         {
           actors(isCast)
         }           
         </ListActors>
+      </>  
     )
 } 
 

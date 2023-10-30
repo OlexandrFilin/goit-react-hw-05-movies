@@ -3,20 +3,23 @@ import { InputSearch, FormSearch,ButtonSearch  } from './MovieSearch.styled';
 import { querySearch } from '../../Api';
 import ListMovies from 'components/ListMovies/ListMovies';
 import {  useSearchParams } from 'react-router-dom';
-
+import { spinerGo } from '../Loader/Loader';
 const MovieSearch = () => {
 const [searchParams, setSearchParams] = useSearchParams();
 //получаем с searchParams параметра query(строка поиска) а елси undefound - пустая строка
 const query =searchParams.get('query') ?? '';
  
   const [isList, setIsList] = useState([]);
+  const [isSpiner, setSpiner] = useState(false);
    //для пробрасывания текущего состояния location во вложенные компоненты
   
   useEffect(() => {
     // Тут виконуємо асинхронну операцію,
     // наприклад HTTP-запит за інформацією про фiльм
     if (!query) return;
+   
     try {
+      setSpiner(true);
       async function fetchMovie() {
         await querySearch(query).then(data => {
           setIsList(data.results);
@@ -26,6 +29,7 @@ const query =searchParams.get('query') ?? '';
     } catch (error) {
       console.log('error', error);
     } finally {
+      setSpiner(false);
     }
   }, [query]);
 
@@ -41,6 +45,12 @@ const query =searchParams.get('query') ?? '';
    const handleChangeParam =(e)=>{
     e.target.value ? setSearchParams({query: e.target.value}) :setSearchParams({});
    }
+  //  const spinerGo = spiner => {
+  //   if (!spiner) {
+  //     return;
+  //   }
+  //   return <div>{spinerFunc()}</div>;
+  // };
   return (
     <>
       <FormSearch  onSubmit={onSubmit}>
@@ -53,6 +63,7 @@ const query =searchParams.get('query') ?? '';
           />
         <ButtonSearch type="submit">Search</ButtonSearch>
       </FormSearch>
+      {spinerGo(isSpiner)}
       {isList && <ListMovies ArrMovies={isList} />}
     </>
   );

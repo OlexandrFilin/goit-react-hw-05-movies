@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { reviews } from '../../Api';
+import { spinerGo } from '../Loader/Loader';
+
 const Reviews = () => {
   const { movieId } = useParams();
   const [isPreviev, setReviews] = useState([]);
+  const [isSpiner, setSpiner] = useState(true);
   useEffect(() => {
     if (isPreviev.length === 0) {
+      setSpiner(true);
       async function fetchData() {
         try {
           await reviews(movieId).then(data => {
@@ -14,6 +18,7 @@ const Reviews = () => {
         } catch (error) {
           console.log('error', error);
         } finally {
+          setSpiner(false);
         }
       }
       fetchData();
@@ -26,7 +31,7 @@ const Reviews = () => {
     if (arrReview.length === 0) {
       return <h3>We don't have any reviews for this movienpm </h3>;
     } else {
-      return arrReview.map(review => {
+      return  arrReview.map(review => {
         return (
           <li key={review.id}>
             <h3>{review.author}</h3>
@@ -34,8 +39,20 @@ const Reviews = () => {
           </li>
         );
       });
+
+  
     }
   };
-  return <ul>{mapReviews(isPreviev)}</ul>;
+  // const spinerGo = spiner => {
+  //   if (!spiner) {
+  //     return;
+  //   }
+  //   return <div>{spinerFunc()}</div>;
+  // };
+  return (
+  <>
+{spinerGo(isSpiner)}
+  <ul>{mapReviews(isPreviev)}</ul>;
+  </>)
 };
 export default Reviews;
