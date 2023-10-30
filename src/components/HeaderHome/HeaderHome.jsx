@@ -1,10 +1,13 @@
+import {HeaderHomeStyl} from './HeaderHome.styled';
+
 
 const HeaderHome =()=>{
     return(
         <>
-        <h2>Trending today</h2>
+        <HeaderHomeStyl>Trending today</HeaderHomeStyl>
           </>
 
     )
 };
+
 export default HeaderHome;

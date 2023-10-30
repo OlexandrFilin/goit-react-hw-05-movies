@@ -1,7 +1,7 @@
 import {  useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {actorsView} from '../../Api';
-import { ImgActor} from './Actors.styled'
+import { ImgActor,ListActors} from './Actors.styled'
 
 const Actors =()=>{
 
@@ -43,11 +43,11 @@ const Actors =()=>{
         
       }
     return (
-        <ul>
+        <ListActors>
         {
           actors(isCast)
         }           
-        </ul>
+        </ListActors>
     )
 } 
 
