@@ -1,27 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 import { InputSearch, FormSearch,ButtonSearch  } from './MovieSearch.styled';
 import { querySearch } from '../../Api';
 import ListMovies from 'components/ListMovies/ListMovies';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import {  useSearchParams } from 'react-router-dom';
 
 const MovieSearch = () => {
-// const MovieSearch = ({ strSearch }) => {  
-  //const [query, setQuery] = useState(strSearch);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const inpRef =useRef();
-
-  let strQuweyDefault =searchParams.get('query');
-  if(!strQuweyDefault){
-    strQuweyDefault='';
-  }else {
-      
-    }
-  const [query, setQuery] = useState(strQuweyDefault);
+const [searchParams, setSearchParams] = useSearchParams();
+//получаем с searchParams параметра query(строка поиска) а елси undefound - пустая строка
+const query =searchParams.get('query') ?? '';
+ 
   const [isList, setIsList] = useState([]);
-   const location = useLocation();
-   
-   console.log('searchParams movi search', searchParams)
-   console.log('locations movi search', location)
+   //для пробрасывания текущего состояния location во вложенные компоненты
+  
   useEffect(() => {
     // Тут виконуємо асинхронну операцію,
     // наприклад HTTP-запит за інформацією про фiльм
@@ -42,15 +32,15 @@ const MovieSearch = () => {
   const onSubmit = e => {
     e.preventDefault();
     const strQuery = e.target.InpStrSearch.value;
-    console.log('query', query)
-    if(strQuery){
+      if(strQuery){
     
-    
-    setQuery(strQuery);
     setSearchParams({query:strQuery});
     };
    };
-
+// для контрольованого вводу параметра використовуємо хук useSearchParams а не  state компонента
+   const handleChangeParam =(e)=>{
+    e.target.value ? setSearchParams({query: e.target.value}) :setSearchParams({});
+   }
   return (
     <>
       <FormSearch  onSubmit={onSubmit}>
@@ -58,7 +48,8 @@ const MovieSearch = () => {
             type="text"
             name="InpStrSearch"
              placeholder="String of search"
-             ref={inpRef}
+              value ={query}
+             onChange={handleChangeParam}
           />
         <ButtonSearch type="submit">Search</ButtonSearch>
       </FormSearch>

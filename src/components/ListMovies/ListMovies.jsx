@@ -2,22 +2,19 @@ import { Link, useLocation} from "react-router-dom";
 
  const ListMovies = ({ArrMovies})=>{  
 
-const location =useLocation();
-console.log('location ListMovies', location)
-
+const locationList =useLocation();
     return (
-      
         <>
        {(ArrMovies.length !==0) && <ul>
             {ArrMovies.map(item =>
             {
                 if(item.title){
                     return <li key={item.id}> 
-                    <Link to={`/movies/${item.id}`}>{item.title}</Link>
+                    <Link to={`/movies/${item.id}`} state={{ from: locationList}} >{item.title}</Link>
                      </li> 
                 } else {
                     return <li key={item.id}> 
-                    <Link to={`/movies/${item.id}`} state={{ from: location }} >{item.name}</Link> 
+                    <Link to={`/movies/${item.id}`} state={{ from: locationList}} >{item.name}</Link> 
                     </li> 
                  }
             }                
@@ -26,5 +23,4 @@ console.log('location ListMovies', location)
         </>
     )
 };
-
 export default ListMovies;

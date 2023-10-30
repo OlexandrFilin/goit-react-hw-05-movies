@@ -1,9 +1,10 @@
 //import GoBack from 'components/GoBack/GoBack';
 import { queryCardMovie } from '../../Api';
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect,useRef} from 'react';
 import { ContainerAboutMovie } from './MovieCard.styled';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet,useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { Suspense } from "react";
 
 const MovieCard = () => {
 
@@ -16,8 +17,8 @@ const MovieCard = () => {
   const [isGenres, setGenres] = useState([]);
   const location =useLocation();
 
-  const linkLocation = useRef(location.state?.from ?? '/movies');
-
+ 
+ const BackLocationRef = useRef(location.state?.from);
   useEffect(() => {
     if (!isPosterPass) {
       async function fetchData() {
@@ -53,11 +54,11 @@ const MovieCard = () => {
       return str + ' ' + nameGenres;
     }, '');
   };
-  console.log('location Movie card', location)
+ 
   const defaultImg = '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>'
   return (
     <>
-        <Link to={linkLocation.current}>Go back</Link>
+       <Link to={BackLocationRef.current}>Go back</Link>
       <ContainerAboutMovie>
         <img
           src={ isPosterPass ?`https://image.tmdb.org/t/p/w500${isPosterPass}`:defaultImg}
@@ -80,7 +81,9 @@ const MovieCard = () => {
           <Link to={'reviews'}> Reviews</Link>
         </li>
       </ul>
+      <Suspense>
       <Outlet />
+      </Suspense>
     </>
   );
 };
