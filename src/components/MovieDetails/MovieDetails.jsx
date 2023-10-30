@@ -1,4 +1,5 @@
 //import GoBack from 'components/GoBack/GoBack';
+import { BiArrowBack } from "react-icons/bi";
 import { queryCardMovie } from '../../Api';
 import { useState, useEffect,useRef} from 'react';
 import { ContainerAboutMovie, GoBackStyl, ListNavAddInfo } from './MovieCard.styled';
@@ -58,7 +59,7 @@ const MovieCard = () => {
   const defaultImg = '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>'
   return (
     <>
-       <GoBackStyl to={BackLocationRef.current}>Go back</GoBackStyl>
+       <GoBackStyl to={BackLocationRef.current}><BiArrowBack/>Go back</GoBackStyl>
       <ContainerAboutMovie>
         <img
           src={ isPosterPass ?`https://image.tmdb.org/t/p/w500${isPosterPass}`:defaultImg}

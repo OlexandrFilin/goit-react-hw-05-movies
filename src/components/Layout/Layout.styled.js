@@ -11,6 +11,7 @@ border: 1px solid black;
 padding: 10px;
 padding-left: 30px;
 margin-bottom: 10px;
+background-color: beige;
  `
 
 export const NavLinkApp = styled(NavLink)`
@@ -20,6 +21,7 @@ margin-right: 10px;
 list-style: none;
 font-size: 24px;
 font-weight: 700;
+
 
 
   &.active {
