@@ -46,12 +46,7 @@ const Actors =()=>{
         })
         
       }
-      // const spinerGo = spiner => {
-      //   if (!spiner) {
-      //     return;
-      //   }
-      //   return <div>{spinerFunc()}</div>;
-      // };
+     
     return (
       <>
       {spinerGo(isSpiner)}

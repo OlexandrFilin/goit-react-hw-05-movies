@@ -26,7 +26,7 @@ const Reviews = () => {
   }, [movieId, isPreviev.length]);
 
   const mapReviews = arrReview => {
-    // console.log('arrReview :>> ', arrReview);
+   
 
     if (arrReview.length === 0) {
       return <h3>We don't have any reviews for this movienpm </h3>;
@@ -43,12 +43,7 @@ const Reviews = () => {
   
     }
   };
-  // const spinerGo = spiner => {
-  //   if (!spiner) {
-  //     return;
-  //   }
-  //   return <div>{spinerFunc()}</div>;
-  // };
+
   return (
   <>
 {spinerGo(isSpiner)}
