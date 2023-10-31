@@ -8,7 +8,7 @@ const MovieSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   //получаем с searchParams параметра query(строка поиска) а елси undefound - пустая строка
   const query = searchParams.get('query') ?? '';
-const [isQuery, setQuery] = useState('');
+const [isQuery, setQuery] = useState(query);
   const [isList, setIsList] = useState([]);
   const [isSpiner, setSpiner] = useState(false);
   //для пробрасывания текущего состояния location во вложенные компоненты
