@@ -8,12 +8,12 @@ const MovieSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   //получаем с searchParams параметра query(строка поиска) а елси undefound - пустая строка
   const query = searchParams.get('query') ?? '';
-const [isQuery, setQuery] = useState(query);
+  const [isQuery, setQuery] = useState(query);
   const [isList, setIsList] = useState([]);
   const [isSpiner, setSpiner] = useState(false);
   //для пробрасывания текущего состояния location во вложенные компоненты
-  //let srtingSearch='';
-  useEffect(() => {
+
+   useEffect(() => {
     // Тут виконуємо асинхронну операцію,
     // наприклад HTTP-запит за інформацією про фiльм
     if (!isQuery) return;
@@ -37,8 +37,8 @@ const [isQuery, setQuery] = useState(query);
     e.preventDefault();
     const strQuery = e.target.InpStrSearch.value;
     if (strQuery) {
-     // setSearchParams({ query: strQuery });
      setQuery(strQuery);
+     e.target.InpStrSearch.value ='';
     }
   };
   // для контрольованого вводу параметра використовуємо хук useSearchParams а не  state компонента
@@ -47,9 +47,10 @@ const [isQuery, setQuery] = useState(query);
       ? setSearchParams({ query: e.target.value })
       : setSearchParams({});
 
-  //   console.log('e.target.value', e.target.value)
+
+       // console.log('e.target.value', e.target.value)
   // srtingSearch=   e.target.value;
-      
+
   };
 
   return (
@@ -59,7 +60,7 @@ const [isQuery, setQuery] = useState(query);
           type="text"
           name="InpStrSearch"
           placeholder="String of search"
-          value={query}
+          //value={query}
           onChange={handleChangeParam}
         />
         <ButtonSearch type="submit">Search</ButtonSearch>
